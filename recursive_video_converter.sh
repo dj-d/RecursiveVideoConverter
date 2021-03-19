@@ -31,7 +31,7 @@ function explore() {
                             echo "############### File: ${file_name}" >> $LOG_FILE_PATH
                             echo "#################### Start conversion" >> $LOG_FILE_PATH
 
-                            # convert $file_name $renamed_file
+                            convert $file_name $renamed_file
                             
                             echo "#################### Finisch conversion" >> $LOG_FILE_PATH
                         fi;
