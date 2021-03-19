@@ -17,12 +17,10 @@ function convert() {
 }
 
 function explore() {
-
     for file in "$1"/* 
         do
             if ! [[ "$file" == *$ORIGINAL_FOLDER* || "$file" == *$CONVERTED_FOLDER* || "$file" == *$NOTTOCONVERT_FOLDER* || "$file" == *$STATUS_FILE* ]] ; then
                 if [ ! -d "${file}" ] ; then
-
                     file_name=$(echo "${file#"$1"}")
                     file_name=${file_name:1}
                     
@@ -36,7 +34,7 @@ function explore() {
                             echo "############### File: ${file_name}" >> $LOG_FILE_PATH
                             echo "#################### Start conversion" >> $LOG_FILE_PATH
 
-                            # convert $file_name $renamed_file
+                            convert $file_name $renamed_file
                             
                             echo "#################### Finisch conversion" >> $LOG_FILE_PATH
                         fi;
@@ -54,7 +52,6 @@ function explore() {
                         mv $file_name $NOTTOCONVERT_FOLDER"/."
                     fi;
                 else
-                    
                     echo "########## Folder: ${file}" >> $LOG_FILE_PATH
 
                     cd "${file}"
@@ -69,9 +66,9 @@ function main() {
     echo "##### START" >> $LOG_FILE_PATH
 
     explore "${1}"
-    
+
     echo "##### FINISH" >> $LOG_FILE_PATH
 }
 
 
-main $INIT_FOLDER
+main $INIT_FOLDER &
