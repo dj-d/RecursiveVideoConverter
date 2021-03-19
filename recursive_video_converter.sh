@@ -1,11 +1,16 @@
 #! /bin/bash
 
-ORIGINAL_FOLDER="$1"
+INIT_FOLDER="$1"
 
-LOG_FILE_PATH=$ORIGINAL_FOLDER"/status.log"
+LOG_FILE_PATH=$INIT_FOLDER"/status.log"
 
 INPUT_EXT="$2"
 OUTPUT_EXT="$3"
+
+ORIGINAL_FOLDER="Original"
+CONVERTED_FOLDER="Converted"
+NOTTOCONVERT_FOLDER="NotToConvert"
+STATUS_FILE="status"
 
 function convert() {
     ffmpeg -i $1 $2 2>/dev/null
@@ -15,15 +20,15 @@ function explore() {
 
     for file in "$1"/* 
         do
-            if ! [[ "$file" == *"Original"* || "$file" == *"Converted"* || "$file" == *"NotToConvert"* || "$file" == *"status"* ]] ; then
+            if ! [[ "$file" == *$ORIGINAL_FOLDER* || "$file" == *$CONVERTED_FOLDER* || "$file" == *$NOTTOCONVERT_FOLDER* || "$file" == *$STATUS_FILE* ]] ; then
                 if [ ! -d "${file}" ] ; then
 
                     file_name=$(echo "${file#"$1"}")
                     file_name=${file_name:1}
                     
                     if [[ "$file" == *"$INPUT_EXT"* ]] ; then
-                        mkdir -p Original
-                        mkdir -p Converted
+                        mkdir -p $ORIGINAL_FOLDER
+                        mkdir -p $CONVERTED_FOLDER
 
                         renamed_file=${file_name:0:-3}$OUTPUT_EXT
 
@@ -31,22 +36,22 @@ function explore() {
                             echo "############### File: ${file_name}" >> $LOG_FILE_PATH
                             echo "#################### Start conversion" >> $LOG_FILE_PATH
 
-                            convert $file_name $renamed_file
+                            # convert $file_name $renamed_file
                             
                             echo "#################### Finisch conversion" >> $LOG_FILE_PATH
                         fi;
 
                         if [ -f "$file_name" ] ; then
-                            mv $file_name Original/.
+                            mv $file_name $ORIGINAL_FOLDER"/."
                         fi;
 
                         if [ -f "$renamed_file" ] ; then
-                            mv $renamed_file Converted/.
+                            mv $renamed_file $CONVERTED_FOLDER"/."
                         fi;
                     else
-                        mkdir -p NotToConvert
+                        mkdir -p $NOTTOCONVERT_FOLDER
 
-                        mv $file_name NotToConvert/.
+                        mv $file_name $NOTTOCONVERT_FOLDER"/."
                     fi;
                 else
                     
@@ -69,4 +74,4 @@ function main() {
 }
 
 
-main $ORIGINAL_FOLDER &
+main $INIT_FOLDER
