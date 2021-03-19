@@ -19,23 +19,28 @@ function convert() {
 function explore() {
     for file in "$1"/* 
         do
+            # Folders and files to avoid
             if ! [[ "$file" == *$ORIGINAL_FOLDER* || "$file" == *$CONVERTED_FOLDER* || "$file" == *$NOTTOCONVERT_FOLDER* || "$file" == *$STATUS_FILE* ]] ; then
+            
+                # I check if I am analyzing a folder or a file
                 if [ ! -d "${file}" ] ; then
                     file_name=$(echo "${file#"$1"}")
                     file_name=${file_name:1}
                     
+                    # To take into account only files with the extension specified in the input
                     if [[ "$file" == *"$INPUT_EXT"* ]] ; then
                         mkdir -p $ORIGINAL_FOLDER
                         mkdir -p $CONVERTED_FOLDER
 
                         renamed_file=${file_name:0:-3}$OUTPUT_EXT
 
+                        # If the converted version of the file to be converted does not already exist
                         if [ ! -f "${renamed_file}" ] ; then
                             echo "############### File: ${file_name}" >> $LOG_FILE_PATH
                             echo "#################### Start conversion" >> $LOG_FILE_PATH
 
                             convert $file_name $renamed_file
-                            
+
                             echo "#################### Finisch conversion" >> $LOG_FILE_PATH
                         fi;
 
