@@ -21,8 +21,8 @@ function explore() {
         do
             # Folders and files to avoid
             if ! [[ "$file" == *$ORIGINAL_FOLDER* || "$file" == *$CONVERTED_FOLDER* || "$file" == *$NOTTOCONVERT_FOLDER* || "$file" == *$STATUS_FILE* ]] ; then
-            
-                # I check if I am analyzing a folder or a file
+
+                # Check if I am analyzing a folder or a file
                 if [ ! -d "${file}" ] ; then
                     file_name=$(echo "${file#"$1"}")
                     file_name=${file_name:1}
