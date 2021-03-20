@@ -1,16 +1,18 @@
 #! /bin/bash
 
-INIT_FOLDER="$1"
+INIT_FOLDER=""
 
 LOG_FILE_PATH=$INIT_FOLDER"/status.log"
 
-INPUT_EXT="$2"
-OUTPUT_EXT="$3"
+INPUT_EXT=""
+OUTPUT_EXT=""
 
 ORIGINAL_FOLDER="Original"
 CONVERTED_FOLDER="Converted"
 NOTTOCONVERT_FOLDER="NotToConvert"
 STATUS_FILE="status"
+
+USE_GPU=false
 
 function convert() {
     ffmpeg -i $1 $2 2>/dev/null
@@ -67,13 +69,45 @@ function explore() {
         done
 }
 
+function usage() { echo "Usage: $0 " 1>&2; exit 1; }
+
+function help() {
+    echo "HELP"
+    exit 1
+}
+
 function main() {
     echo "##### START" >> $LOG_FILE_PATH
 
-    explore "${1}"
-
+    # explore "${1}"
+    
     echo "##### FINISH" >> $LOG_FILE_PATH
 }
 
+while getopts "p:i:o:gh" option ; 
+    do
+        case "${option}" in
+            p)
+                INIT_FOLDER="${OPTARG}"
+                ;;
+            i)
+                INPUT_EXT="${OPTARG}"
+                ;;
+            o)
+                OUTPUT_EXT="${OPTARG}"
+                ;;
+            g)
+                USE_GPU=true
+                ;;
+            h)
+                help
+                ;;
+            *)
+                usage
+                ;;
+        esac
+    done
 
-main $INIT_FOLDER &
+shift $((OPTIND-1))
+
+main $INIT_FOLDER
