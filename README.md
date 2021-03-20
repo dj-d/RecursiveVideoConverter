@@ -1,5 +1,5 @@
 # RecursiveVideoConverter
-This file allows you to convert a number of files using *__ffmpeg__*
+This script allows you to convert a number of files using *__ffmpeg__*
 
 ## __USAGE__
 
