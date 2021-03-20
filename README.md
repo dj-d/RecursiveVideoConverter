@@ -17,8 +17,6 @@ sudo chmod +x recursive_video_converter.sh
 
 ## __PARAMETERS__
 
-p:i:o:l:gh
-
 | Param | Description | Default | Example |
 | --- | --- | --- | --- |
 | -p | Indicates the location of the video folder | | /folder/path/|
