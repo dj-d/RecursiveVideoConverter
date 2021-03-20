@@ -12,6 +12,11 @@ CONVERTED_FOLDER="Converted"
 NOTTOCONVERT_FOLDER="NotToConvert"
 STATUS_FILE="status"
 
+# PARAMS
+#
+# $1 -> Using the GPU
+# $2 -> File to convert
+# $3 -> File to convert into
 function convert() {
     if [ $1 = true ] 
         then
@@ -21,6 +26,13 @@ function convert() {
         fi;
 }
 
+# PARAMS
+#
+# $1 -> Videos path
+# $2 -> File extension to convert
+# $3 -> File extension to convert into
+# $4 -> Using the GPU
+# $5 -> Log file path
 function explore() {
     for file in "$1"/* 
         do
@@ -87,6 +99,13 @@ function help() {
     exit 1
 }
 
+# PARAMS
+#
+# $1 -> Videos path
+# $2 -> File extension to convert
+# $3 -> File extension to convert into
+# $4 -> Using the GPU
+# $5 -> Log file path
 function main() {
     if [[ -z "${1}" && -z "${2}" && -z "${3}" ]]
         then
