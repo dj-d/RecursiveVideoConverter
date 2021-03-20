@@ -17,14 +17,14 @@ sudo chmod +x recursive_video_converter.sh
 
 ## __PARAMETERS__
 
-| Param | Description | Default | Example |
-| --- | --- | --- | --- |
-| -p | Indicates the location of the video folder | | /folder/path/|
-| -i | Indicates the extension of the video to convert | | mkv, mp4, avi, ... |
-| -o | Indicates the extension of the files to convert to | | mkv, mp4, avi, ... |
-| -l | Indicates where to place the log file | Script location | /folder/path/ |
-| -g | Indicates whether to use the GPU* | False | *No parameters* |
-| -h | Help command | | |
+| Param | Description                                        | Example            | Default         |
+| :---: | -------------------------------------------------- | :----------------- | :-------------: |
+| -p    | Indicates the location of the video folder         | /folder/path/      |
+| -i    | Indicates the extension of the video to convert    | mkv, mp4, avi, ... |
+| -o    | Indicates the extension of the files to convert to | mkv, mp4, avi, ... |
+| -l    | Indicates where to place the log file              | /folder/path/      | Script location |
+| -g    | Indicates whether to use the GPU*                  | *No parameters*    | False           |
+| -h    | Help command                                       |
 
 ### *__GPU Usage__
 
